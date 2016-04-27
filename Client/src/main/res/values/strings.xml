@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">唱k客户端</string>
+    <string name="start">开始录音</string>
+    <string name="stop">停止录音</string>
+</resources>
