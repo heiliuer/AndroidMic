@@ -23,4 +23,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.google.code.gson:gson:2.2.4' // google GSON
+    compile 'com.google.guava:guava:14.0.1' // guava 14.0.1
 }

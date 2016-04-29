@@ -1,4 +1,6 @@
-package com.heiliuer.myapplication;
+package com.heiliuer.androidmic_client;
+
+import com.heiliuer.androidmic_client.udpmulti.UdpMulticastReceiver;
 
 import org.junit.Test;
 
@@ -12,4 +14,11 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+
+    @Test
+    public void testUdpMulticastReceiver() {
+        UdpMulticastReceiver.beginReceive(9998);
+    }
+
 }

@@ -1,4 +1,6 @@
-package com.heiliuer.androidmic;
+package com.heiliuer.androidmic_server;
+
+import com.heiliuer.androidmic_server.udpmulti.UdpMulticastSender;
 
 import org.junit.Test;
 
@@ -11,5 +13,9 @@ public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
+    }
+
+    public void testUdpMulticastSender() {
+        UdpMulticastSender.beginSend();
     }
 }

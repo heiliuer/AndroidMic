@@ -1,16 +1,14 @@
-package com.heiliuer.myapplication;
+package com.heiliuer.androidmic_server.tcp_audiotrack;
 
 import android.annotation.TargetApi;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioTrack;
 import android.os.Build;
-import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.Arrays;
 
 /**
  * Created by Administrator on 2016/4/28 0028.
@@ -37,9 +35,23 @@ public class SocketAudioTrack extends Thread {
     public SocketAudioTrack(Socket socket, OnStateChanged onStateChanged) {
         this.onStateChanged = onStateChanged;
         this.socket = socket;
-        int maxJitter = AudioTrack.getMinBufferSize(8000, AudioFormat.CHANNEL_OUT_MONO, AudioFormat.ENCODING_PCM_16BIT);
-        audioTrack = new AudioTrack(AudioManager.MODE_IN_COMMUNICATION, 8000, AudioFormat.CHANNEL_OUT_MONO,
-                AudioFormat.ENCODING_PCM_16BIT, maxJitter, AudioTrack.MODE_STREAM);
+
+//        int sampleRateInHz = 8000;
+//        int channelConfig = AudioFormat.CHANNEL_OUT_MONO;
+//        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+//        int streamType = AudioManager.MODE_IN_COMMUNICATION;
+//        int mode = AudioTrack.MODE_STREAM;
+
+        int sampleRateInHz = 6000;
+        int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+        int streamType = AudioManager.STREAM_MUSIC;
+        int mode = AudioTrack.MODE_STREAM;
+
+
+        int maxJitter = AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
+        audioTrack = new AudioTrack(streamType, sampleRateInHz, channelConfig,
+                audioFormat, maxJitter, mode);
     }
 
     @Override
@@ -47,16 +59,17 @@ public class SocketAudioTrack extends Thread {
         super.run();
         try {
             InputStream inputStream = socket.getInputStream();
-            byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[1024*16];
             int byteCount;
-            audioTrack.play(); // 启动音频设备，下面就可以真正开始音频数据的播放了
+            audioTrack.play();
+            // 启动音频设备，下面就可以真正开始音频数据的播放了
 
             while ((!socket.isClosed() && socket.isBound())) {
                 byteCount = inputStream.read(buffer);
                 if (byteCount != -1) {
                     audioTrack.write(buffer, 0, byteCount);
-                    //outputStream.write(buffer, 0, byteCount);
-                    Log.v("myLog", Arrays.toString(buffer));
+                    audioTrack.flush();
+                    //Log.v("myLog", Arrays.toString(buffer));
                 }
             }
             onStateChanged.mediaPlayerFinished(audioTrack, OnStateChanged.TYPE_SOCKET_END);
