@@ -25,15 +25,15 @@ public class RecordSockt extends Thread {
         this.socketPort = socketPort;
 
 
-//        int sampleRateInHz = 8000;
-//        int channelConfig = AudioFormat.CHANNEL_IN_MONO;
-//        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-//        int audioSource = MediaRecorder.AudioSource.VOICE_COMMUNICATION;
-
-        int sampleRateInHz =6000;
-        int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+        int sampleRateInHz = 8000;
+        int channelConfig = AudioFormat.CHANNEL_IN_MONO;
         int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-        int audioSource = MediaRecorder.AudioSource.MIC;
+        int audioSource = MediaRecorder.AudioSource.VOICE_COMMUNICATION;
+
+//        int sampleRateInHz =6000;
+//        int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+//        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+//        int audioSource = MediaRecorder.AudioSource.MIC;
 
         int min = AudioRecord.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
         recorder = new AudioRecord(audioSource, sampleRateInHz, channelConfig,

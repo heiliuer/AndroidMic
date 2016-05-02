@@ -36,17 +36,17 @@ public class SocketAudioTrack extends Thread {
         this.onStateChanged = onStateChanged;
         this.socket = socket;
 
-//        int sampleRateInHz = 8000;
-//        int channelConfig = AudioFormat.CHANNEL_OUT_MONO;
-//        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-//        int streamType = AudioManager.MODE_IN_COMMUNICATION;
-//        int mode = AudioTrack.MODE_STREAM;
-
-        int sampleRateInHz = 6000;
-        int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+        int sampleRateInHz = 8000;
+        int channelConfig = AudioFormat.CHANNEL_OUT_MONO;
         int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
-        int streamType = AudioManager.STREAM_MUSIC;
+        int streamType = AudioManager.MODE_IN_COMMUNICATION;
         int mode = AudioTrack.MODE_STREAM;
+
+//        int sampleRateInHz = 6000;
+//        int channelConfig = AudioFormat.CHANNEL_CONFIGURATION_MONO;
+//        int audioFormat = AudioFormat.ENCODING_PCM_16BIT;
+//        int streamType = AudioManager.STREAM_MUSIC;
+//        int mode = AudioTrack.MODE_STREAM;
 
 
         int maxJitter = AudioTrack.getMinBufferSize(sampleRateInHz, channelConfig, audioFormat);
